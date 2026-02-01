@@ -9,5 +9,5 @@ public interface RegRepo {
 	public List<Emp> viewEmp();
 	public  void delete(String name);
 	public int update(Emp e);
-	
+	public List<Emp> sr(String name);
 }

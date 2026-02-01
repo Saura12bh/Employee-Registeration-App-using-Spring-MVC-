@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class HomeController {
@@ -55,16 +56,29 @@ public class HomeController {
 	}
 	@GetMapping("/update")
 	public String Up(@RequestParam("name") String name, @RequestParam("email") String email,
-			@RequestParam("password") String password  ,Map<String,Object>map) {
+			@RequestParam("password") String password ,Map<String,Object>map) {
 		map.put("name",name);
 		map.put("email", email);
 		map.put("password", password);
 		return "update";
 	}
+	
+	
 	@PostMapping("/upd")
 	public String update(Emp e)
 	{
 		int v=regService.update(e);
 		return "redirect:/view";
 	}
+	
+	//serching name in emp
+	@GetMapping("/search")
+	@ResponseBody
+	public List<Emp> sr(@RequestParam("name") String name)
+	{
+		List<Emp> list=regService.sr(name);
+		return list;
+	}
+	
+	
 }

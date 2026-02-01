@@ -47,4 +47,21 @@ public class RegRepoImpl implements RegRepo {
 		return jdbcTemplate.update("update reg1 set email=?,password=? where name=?",new Object[] {e.getEmail(),e.getPassword(),e.getName()});
 	}
 
+	@Override
+	public List<Emp> sr(String name) {
+		
+		List<Emp> list=jdbcTemplate.query("select * from reg1 where name like '%"+name+"%'",new RowMapper<Emp>() {
+
+			@Override
+			public Emp mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Emp e=new Emp();
+				e.setName(rs.getString(1));
+				e.setEmail(rs.getString(2));
+				e.setPassword(rs.getString(3));
+				return e;
+			}
+		} );
+		return list;
+	}
+
 }

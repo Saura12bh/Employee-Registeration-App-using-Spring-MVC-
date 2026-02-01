@@ -30,5 +30,10 @@ public class RegServiceImpl  implements RegService {
 		// TODO Auto-generated method stub
 		return regRepo.update(e);
 	}
+	@Override
+	public List<Emp> sr(String name) {
+		// TODO Auto-generated method stub
+		return regRepo.sr(name);
+	}
 
 }
