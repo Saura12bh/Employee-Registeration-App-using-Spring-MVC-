@@ -64,4 +64,11 @@ public class RegRepoImpl implements RegRepo {
 		return list;
 	}
 
+	@Override
+	public void save(String name, String imgPath, String pdfPath) {
+		// TODO Auto-generated method stub
+		  jdbcTemplate.update("insert into subject(name,image_path,pdf_path) values(?,?,?)",
+	                name, imgPath, pdfPath);
+	}
+
 }

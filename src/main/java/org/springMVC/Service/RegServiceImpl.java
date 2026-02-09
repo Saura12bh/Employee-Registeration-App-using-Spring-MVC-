@@ -35,5 +35,9 @@ public class RegServiceImpl  implements RegService {
 		// TODO Auto-generated method stub
 		return regRepo.sr(name);
 	}
+	@Override
+	public void save(String name, String imgPath, String pdfPath) {
+		regRepo.save(name, imgPath, pdfPath);
+	}
 
 }

@@ -1,11 +1,16 @@
 package org.springMVC.Controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import org.springMVC.Model.Emp;
+import org.springMVC.Model.Subject;
 import org.springMVC.Repo.RegRepoImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +18,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class HomeController {
@@ -79,6 +87,45 @@ public class HomeController {
 		List<Emp> list=regService.sr(name);
 		return list;
 	}
-	
-	
+	//add Subject
+	@GetMapping("/addSubject")
+	public String addSubject(Map<String,List<Emp>>map)
+	{
+		List<Emp> list = regService.viewEmp();
+		map.put("empList", list);
+		return "subject";
+	}
+		
+	//upload files
+	@PostMapping("/saveSubject")
+	public String saveSubject(Subject subject,HttpServletRequest request,Map<String,String>map) throws IllegalStateException, IOException
+	{
+//		String n=subject.getName();
+//		int id=subject.getId();
+//		MultipartFile i=subject.getImg();
+//		MultipartFile p=subject.getPdf();
+//		List<String> li=subject.getCourse();
+//		System.out.println(n+"\t"+id+"\t"+i+" \t"+p+"\t"+li);
+		        String uploadPath = request.getServletContext().getRealPath("/uploads/");
+	            new File(uploadPath).mkdirs();
+
+	            MultipartFile img = subject.getImg();
+	            MultipartFile pdf = subject.getPdf();
+
+	            String imgName = img.getOriginalFilename();
+	            String pdfName = pdf.getOriginalFilename();
+
+	            img.transferTo(new File(uploadPath + imgName));
+	            pdf.transferTo(new File(uploadPath + pdfName));
+
+	            regService.save(
+	                subject.getName(),
+	                "uploads/" + imgName,
+	                "uploads/" + pdfName
+	            );
+				return "subject";
+
+	        
+	}
+
 }

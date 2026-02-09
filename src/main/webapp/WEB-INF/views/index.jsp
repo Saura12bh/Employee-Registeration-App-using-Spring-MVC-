@@ -20,6 +20,11 @@
 	<button type="button" class="btn btn-primary"><a  href="reg">Register</a></button>
 	
 	<button type="button" class="btn btn-primary"><a  href="view">view</a></button>
+	
+	<button type="button" class="btn btn-primary"><a  href="addSubject">Add Subject</a></button>
+	
+	<button type="button" class="btn btn-primary"><a  href="viewSubject">View Subject</a></button>
+	
 	<div class="container"></div>
 </body>
 </html>

@@ -9,5 +9,6 @@ public interface RegRepo {
 	public List<Emp> viewEmp();
 	public  void delete(String name);
 	public int update(Emp e);
+    void save(String name, String imgPath, String pdfPath);
 	public List<Emp> sr(String name);
 }

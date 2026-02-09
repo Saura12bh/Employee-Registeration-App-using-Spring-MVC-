@@ -10,4 +10,5 @@ public interface RegService {
 	public  void delete(String name);
 	public int update(Emp e);
 	public List<Emp> sr(String name);
+    void save(String name, String imgPath, String pdfPath);
 }

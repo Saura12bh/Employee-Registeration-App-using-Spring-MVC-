@@ -74,12 +74,13 @@ function sr() {
 
                 tdUpdate.appendChild(a);
                 tr.appendChild(tdUpdate);
+                
                 //delet
                  let tddelet = document.createElement("td");
                 let a1 = document.createElement("a");
-                a.innerText = "Delete";
+                a1.innerText = "Delete";
 
-                a.href = "update?name=" + emp.name;
+                a1.href = "delete?name=" + emp.name;
                 tddelet.appendChild(a1);
                 tr.appendChild(tddelet);
   
