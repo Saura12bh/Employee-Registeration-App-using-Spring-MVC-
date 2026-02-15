@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springMVC.Model.Emp;
 import org.springMVC.Model.Subject;
 import org.springMVC.Repo.RegRepoImpl;
@@ -24,9 +26,12 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class HomeController {
+	
+	private static final Logger logger=LoggerFactory.getLogger(HomeController.class);
 
 	@RequestMapping("/")
 	public String index() {
+		  logger.info(" page opened");
 		return "index";
 	}
 
@@ -40,18 +45,23 @@ public class HomeController {
 
 	@PostMapping("/save")
 	public String save(Emp e, Model m, Map<String, Emp> map) {
+		
+		//save logger
+		 logger.info("Saving employee");
 		map.put("m", e);
 		int b = regService.add(e);
 		if (b > 0) {
 			m.addAttribute("msg", "Emp registred successfuly");
 		} else {
 			m.addAttribute("msg", "Emp not registred successfuly");
+			 logger.error("Error while saving employee");
 		}
 		return "display";
 	}
 
 	@GetMapping("/view")
 	public String view(Model m) {
+		 logger.info("Viewing employee");
 		List<Emp> list = regService.viewEmp();
 		m.addAttribute("m", list);
 		return "view";
@@ -59,6 +69,7 @@ public class HomeController {
 
 	@GetMapping("/delete")
 	public String del(@RequestParam("name") String name) {
+		 logger.info("Delete EMP  employee");
 		regService.delete(name);
 		return "redirect:/view";
 	}
